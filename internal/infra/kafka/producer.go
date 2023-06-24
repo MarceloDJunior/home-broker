@@ -12,7 +12,7 @@ func NewKafkaProducer(configMap *ckafka.ConfigMap) *Producer {
 	}
 }
 
-func (p *Producer) Produce(msg interface{}, key []byte, topic string) error {
+func (p *Producer) Publish(msg interface{}, key []byte, topic string) error {
 	producer, err := ckafka.NewProducer(p.ConfigMap)
 	if err != nil {
 		return err
