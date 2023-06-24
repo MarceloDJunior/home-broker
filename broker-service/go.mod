@@ -1,4 +1,4 @@
-module github.com/MarceloDJunior/home-broker
+module github.com/MarceloDJunior/home-broker/broker-service
 
 go 1.20
 

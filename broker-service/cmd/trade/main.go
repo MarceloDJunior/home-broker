@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/MarceloDJunior/home-broker/internal/infra/kafka"
-	"github.com/MarceloDJunior/home-broker/internal/market/dto"
-	"github.com/MarceloDJunior/home-broker/internal/market/entity"
-	"github.com/MarceloDJunior/home-broker/internal/market/transformer"
+	"github.com/MarceloDJunior/home-broker/broker-service/internal/infra/kafka"
+	"github.com/MarceloDJunior/home-broker/broker-service/internal/market/dto"
+	"github.com/MarceloDJunior/home-broker/broker-service/internal/market/entity"
+	"github.com/MarceloDJunior/home-broker/broker-service/internal/market/transformer"
 	ckafka "github.com/confluentinc/confluent-kafka-go/kafka"
 )
 

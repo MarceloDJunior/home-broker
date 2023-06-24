@@ -1,8 +1,8 @@
 package transformer
 
 import (
-	"github.com/MarceloDJunior/home-broker/internal/market/dto"
-	"github.com/MarceloDJunior/home-broker/internal/market/entity"
+	"github.com/MarceloDJunior/home-broker/broker-service/internal/market/dto"
+	"github.com/MarceloDJunior/home-broker/broker-service/internal/market/entity"
 )
 
 func TransformInput(input dto.TradeInput) *entity.Order {
