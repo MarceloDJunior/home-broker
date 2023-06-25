@@ -6,6 +6,7 @@ const defaultOptions: RequestInit = {
   headers: {
     'Content-type': 'application/json',
   },
+  // cache: 'no-store', // disable caching
   next: {
     revalidate: 10,
   },
@@ -13,13 +14,17 @@ const defaultOptions: RequestInit = {
 
 type Options = {
   tag: string;
+  revalidate: number;
 };
 
 export class HttpClient {
-  static async get(url: string, options?: Options): Promise<any> {
+  static async get(url: string, options?: Partial<Options>): Promise<any> {
     const customOptions = { ...defaultOptions };
     if (options?.tag && customOptions.next) {
       customOptions.next.tags = [options.tag];
+    }
+    if (options?.revalidate && customOptions.next) {
+      customOptions.next.revalidate = options.revalidate;
     }
     const response = await fetch(baseUrl + url, customOptions);
     const json = await response.json();

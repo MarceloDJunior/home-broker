@@ -1,8 +1,12 @@
 import { HttpClient } from '../http-client';
 import { WalletAsset } from '../models';
+import { isHomeBrokerClosed } from '../utils';
 
 const getWalletAssets = async (walletId: string): Promise<WalletAsset[]> => {
-  return await HttpClient.get(`/wallets/${walletId}/assets`);
+  const oneHour = 60 * 60;
+  return await HttpClient.get(`/wallets/${walletId}/assets`, {
+    revalidate: isHomeBrokerClosed() ? oneHour : 5,
+  });
 };
 
 type Props = {
