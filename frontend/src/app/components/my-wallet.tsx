@@ -1,17 +1,15 @@
+import { HttpClient } from '../http-client';
 import { WalletAsset } from '../models';
 
 const getWalletAssets = async (walletId: string): Promise<WalletAsset[]> => {
-  const response = await fetch(
-    `http://localhost:8000/wallets/${walletId}/assets`,
-  );
-  return await response.json();
+  return await HttpClient.get(`/wallets/${walletId}/assets`);
 };
 
 type Props = {
   walletId: string;
 };
 
-const MyWallet = async ({ walletId }: Props) => {
+export const MyWallet = async ({ walletId }: Props) => {
   const walletAssets = await getWalletAssets(walletId);
 
   return (
@@ -28,5 +26,3 @@ const MyWallet = async ({ walletId }: Props) => {
     </ul>
   );
 };
-
-export default MyWallet;

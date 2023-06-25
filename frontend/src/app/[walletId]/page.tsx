@@ -1,4 +1,4 @@
-import MyWallet from '../components/my-wallet';
+import { MyWallet } from '../components/my-wallet';
 
 type PageProps = {
   params: {
