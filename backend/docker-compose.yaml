@@ -8,6 +8,8 @@ services:
       - 5555:5555 # prisma studio
     volumes:
       - .:/home/node/app
+    extra_hosts:
+      - 'host.docker.internal:172.17.0.1' # to reach localhost
 
   db:
     image: bitnami/mongodb:5.0.17

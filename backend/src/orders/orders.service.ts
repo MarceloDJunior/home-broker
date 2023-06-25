@@ -1,11 +1,16 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
+import { ClientKafka } from '@nestjs/microservices';
 import { OrderStatus, OrderType } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { InitTransactionDto, InputExecuteTransactionDto } from './order.dto';
 
 @Injectable()
 export class OrdersService {
-  constructor(private prismaService: PrismaService) {}
+  constructor(
+    private prismaService: PrismaService,
+    @Inject('ORDERS PUBLISHER')
+    private readonly kafkaClient: ClientKafka,
+  ) {}
 
   async all(filter: { wallet_id: string }) {
     return await this.prismaService.order.findMany({
@@ -41,6 +46,14 @@ export class OrdersService {
         status: OrderStatus.PENDING,
         version: 1,
       },
+    });
+    this.kafkaClient.emit('input', {
+      order_id: order.id,
+      investor_id: order.wallet_id,
+      asset_id: order.asset_id,
+      shares: order.shares,
+      price: order.price,
+      order_type: order.type,
     });
     return order;
   }
@@ -95,7 +108,7 @@ export class OrdersService {
                 asset_id: order.asset_id,
                 wallet_id: order.wallet_id,
               },
-              version: order.version,
+              version: walletAsset.version,
             },
             data: {
               shares:

@@ -46,8 +46,8 @@ Content-Type: application/json
 {
   "asset_id": "asset1",
   "shares": 5,
-  "price": 100,
-  "type": "BUY"
+  "price": 10,
+  "type": "SELL"
 }
 
 ### List all orders by wallet

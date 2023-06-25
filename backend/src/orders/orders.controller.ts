@@ -1,6 +1,25 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { MessagePattern, Payload } from '@nestjs/microservices';
 import { InitTransactionDto, InputExecuteTransactionDto } from './order.dto';
 import { OrdersService } from './orders.service';
+
+type ExecuteTransactionMessage = {
+  order_id: string;
+  investor_id: string;
+  asset_id: string;
+  order_type: string;
+  status: 'OPEN' | 'CLOSED';
+  partial: number;
+  shares: number;
+  transactions: {
+    transaction_id: string;
+    buyer_id: string;
+    seller_id: string;
+    asset_id: string;
+    shares: number;
+    price: number;
+  }[];
+};
 
 @Controller('wallets/:wallet_id/orders')
 export class OrdersController {
@@ -19,8 +38,28 @@ export class OrdersController {
     return await this.ordersService.initTransaction({ wallet_id, ...body });
   }
 
+  // Only for testing. Kafka will use the route below this one
   @Post('execute')
-  async executeTransaction(@Body() body: InputExecuteTransactionDto) {
+  async executeTransactionRest(@Body() body: InputExecuteTransactionDto) {
     await this.ordersService.executeTransaction(body);
+  }
+
+  // Route that will consume the message from the 'output' kafka topic
+  @MessagePattern('output')
+  async executeTransactionConsumer(
+    @Payload() message: ExecuteTransactionMessage,
+  ) {
+    const transaction = message.transactions[message.transactions.length - 1];
+    await this.ordersService.executeTransaction({
+      order_id: message.order_id,
+      status: message.status,
+      related_investor_id:
+        message.order_type === 'BUY'
+          ? transaction.seller_id
+          : transaction.buyer_id,
+      broker_transaction_id: transaction.transaction_id,
+      negotiated_shares: transaction.shares,
+      price: transaction.price,
+    });
   }
 }
