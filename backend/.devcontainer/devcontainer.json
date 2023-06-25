@@ -14,7 +14,17 @@
 	"service": "app",
 	// The optional 'workspaceFolder' property is the path VS Code should open by default when
 	// connected. This is typically a file mount in .devcontainer/docker-compose.yml
-	"workspaceFolder": "/home/node/app"
+	"workspaceFolder": "/home/node/app",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"prisma.prisma",
+				"humao.rest-client",
+				"esbenp.prettier-vscode",
+				"dbaeumer.vscode-eslint"
+			]
+		}
+	}
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
 	// Uncomment the next line if you want start specific services in your Docker Compose config.
