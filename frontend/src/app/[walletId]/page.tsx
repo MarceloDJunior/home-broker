@@ -8,11 +8,14 @@ type PageProps = {
 
 const HomePage = async ({ params }: PageProps) => {
   return (
-    <div>
-      <h1>Meus investimentos</h1>
+    <main className="container mx-auto px-2 py-5">
+      <article className="format format-invert py-3">
+        <h1>Meus investimentos</h1>
+      </article>
+
       {/* @ts-expect-error */}
       <MyWallet walletId={params.walletId} />
-    </div>
+    </main>
   );
 };
 
