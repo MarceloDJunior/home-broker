@@ -1,3 +1,4 @@
+import { ChartComponent } from '@/app/components/chart-component';
 import {
   TabsGroup,
   TabsItem,
@@ -20,7 +21,7 @@ const HomeBrokerPage = async ({ params }: PageProps) => {
       <article className="format format-invert py-3">
         <h1>Home broker - {params.assetId}</h1>
       </article>
-      <div className="grid grid-cols-5 flex-grow gap-2 mt-2">
+      <div className="grid grid-cols-5 flex-grow gap-8 mt-2">
         <div className="col-span-2">
           <div>
             <Card
@@ -65,7 +66,9 @@ const HomeBrokerPage = async ({ params }: PageProps) => {
             </Card>
           </div>
         </div>
-        <div className="col-span-3 flex flex-grow"></div>
+        <div className="col-span-3 flex flex-grow">
+          <ChartComponent header="Asset 1 - R$ 100" />
+        </div>
       </div>
     </main>
   );
