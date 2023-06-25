@@ -1,5 +1,6 @@
 import { revalidateTag } from 'next/cache';
 import { HttpClient } from '../http-client';
+import { Button, Label, TextInput } from './flowbite-components';
 
 const initTransaction = async (formData: FormData) => {
   'use server';
@@ -30,33 +31,49 @@ const initTransaction = async (formData: FormData) => {
 type Props = {
   assetId: string;
   walletId: string;
+  type: 'BUY' | 'SELL';
 };
 
-export const OrderForm = ({ assetId, walletId }: Props) => {
+export const OrderForm = ({ assetId, walletId, type }: Props) => {
   return (
     <div>
-      <h1>Order Form</h1>
       <form action={initTransaction}>
-        <input type="hidden" name="assetId" defaultValue={assetId} />
-        <input type="hidden" name="walletId" defaultValue={walletId} />
-        <input type="hidden" name="type" defaultValue="BUY" />
-        <input
-          type="number"
-          name="shares"
-          min={1}
-          step={1}
-          placeholder="Quantidade"
-        />
+        <input name="asset_id" type="hidden" defaultValue={assetId} />
+        <input name="wallet_id" type="hidden" defaultValue={walletId} />
+        <input name="type" type="hidden" defaultValue={'BUY'} />
+        <div>
+          <div className="mb-2 block">
+            <Label htmlFor="shares" value="Quantidade" />
+          </div>
+          <TextInput
+            id="shares"
+            name="shares"
+            required
+            type="number"
+            min={1}
+            step={1}
+            defaultValue={1}
+          />
+        </div>
         <br />
-        <input
-          type="number"
-          name="price"
-          min={1}
-          step={0.1}
-          placeholder="Preço"
-        />
+        <div>
+          <div className="mb-2 block">
+            <Label htmlFor="shares" value="Preço R$" />
+          </div>
+          <TextInput
+            id="price"
+            name="price"
+            required
+            type="number"
+            min={1}
+            step={1}
+            defaultValue={1}
+          />
+        </div>
         <br />
-        <button>Comprar</button>
+        <Button type="submit" color={type === 'BUY' ? 'green' : 'red'}>
+          Confirmar {type === 'BUY' ? 'compra' : 'venda'}
+        </Button>
       </form>
     </div>
   );

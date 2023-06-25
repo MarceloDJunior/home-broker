@@ -1,5 +1,11 @@
+import {
+  TabsGroup,
+  TabsItem,
+  Card,
+} from '@/app/components/flowbite-components';
 import { MyOrders } from '@/app/components/my-orders';
 import { OrderForm } from '@/app/components/order-form';
+import { HiArrowUp, HiShoppingCart } from '@/app/components/react-icons/hi';
 
 type PageProps = {
   params: {
@@ -10,21 +16,58 @@ type PageProps = {
 
 const HomeBrokerPage = async ({ params }: PageProps) => {
   return (
-    <div>
-      <h1>Home broker</h1>
-      <div className="flex flex-row ">
-        <div className="flex flex-col">
+    <main className="flex flex-grow flex-col container mx-auto px-2 py-5">
+      <article className="format format-invert py-3">
+        <h1>Home broker - {params.assetId}</h1>
+      </article>
+      <div className="grid grid-cols-5 flex-grow gap-2 mt-2">
+        <div className="col-span-2">
           <div>
-            <OrderForm assetId={params.assetId} walletId={params.walletId} />
+            <Card
+              theme={{
+                root: {
+                  children:
+                    'flex h-full flex-col justify-center gap-4 py-4 px-2',
+                },
+              }}
+            >
+              <TabsGroup aria-label="Default tabs" style="pills">
+                <TabsItem active title="Comprar" icon={HiShoppingCart}>
+                  <OrderForm
+                    walletId={params.walletId}
+                    assetId={params.assetId}
+                    type="BUY"
+                  />
+                </TabsItem>
+                <TabsItem title="Vender" icon={HiArrowUp}>
+                  <OrderForm
+                    walletId={params.walletId}
+                    assetId={params.assetId}
+                    type="SELL"
+                  />
+                </TabsItem>
+              </TabsGroup>
+            </Card>
           </div>
-          <div>
-            {/* @ts-expect-error */}
-            <MyOrders walletId={params.walletId} />
+          <div className="mt-2">
+            <Card
+              theme={{
+                root: {
+                  children:
+                    'flex h-full flex-col justify-center gap-4 py-4 px-2',
+                },
+              }}
+            >
+              <div className="max-h-96 overflow-y-auto overflow-hidden">
+                {/* @ts-expect-error */}
+                <MyOrders walletId={params.walletId} />
+              </div>
+            </Card>
           </div>
         </div>
-        <div>grafico</div>
+        <div className="col-span-3 flex flex-grow"></div>
       </div>
-    </div>
+    </main>
   );
 };
 
