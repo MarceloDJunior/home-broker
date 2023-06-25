@@ -2,8 +2,9 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider      = "prisma-client-js"
-  binaryTargets = "debian-openssl-3.0.x"
+  provider        = "prisma-client-js"
+  binaryTargets   = "debian-openssl-3.0.x"
+  previewFeatures = ["extendedWhereUnique"]
 }
 
 datasource db {
@@ -36,6 +37,7 @@ model WalletAsset {
   Asset      Asset    @relation(fields: [asset_id], references: [id])
   asset_id   String
   shares     Int      @db.Int
+  version    Int?
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
@@ -53,6 +55,7 @@ model Order {
   type         OrderType
   status       OrderStatus
   partial      Int           @db.Int
+  version      Int?
   created_at   DateTime      @default(now())
   updated_at   DateTime      @updatedAt
   Transactions Transaction[]
