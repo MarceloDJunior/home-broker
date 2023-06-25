@@ -39,14 +39,29 @@ Content-Type: application/json
 GET http://localhost:3000/wallets/wallet1/assets
 
 
-### Add a new order
-POST http://localhost:3000/orders
+### Add a new order to wallet
+POST http://localhost:3000/wallets/wallet1/orders
 Content-Type: application/json
 
 {
   "asset_id": "asset1",
-  "wallet_id": "wallet1",
   "shares": 5,
   "price": 100,
   "type": "BUY"
+}
+
+### List all orders by wallet
+GET http://localhost:3000/wallets/wallet1/orders
+
+### Execute order
+POST http://localhost:3000/wallets/wallet1/orders/execute
+Content-Type: application/json
+
+{
+  "order_id" : "649850474249434725e5f605",
+  "status": "CLOSED",
+  "related_investor_id": "xxxx",
+  "broker_transaction_id": "xxxx",
+  "negotiated_shares": 10,
+  "price": 10
 }
