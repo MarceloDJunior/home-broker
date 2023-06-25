@@ -4,7 +4,8 @@ services:
   app:
     build: .
     ports:
-      - 3000:3000
+      - 3000:3000 # app
+      - 5555:5555 # prisma studio
     volumes:
       - .:/home/node/app
 
