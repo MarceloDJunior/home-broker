@@ -37,3 +37,16 @@ Content-Type: application/json
 
 ### List all assets from wallet
 GET http://localhost:3000/wallets/wallet1/assets
+
+
+### Add a new order
+POST http://localhost:3000/orders
+Content-Type: application/json
+
+{
+  "asset_id": "asset1",
+  "wallet_id": "wallet1",
+  "shares": 5,
+  "price": 100,
+  "type": "BUY"
+}
