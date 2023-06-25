@@ -1,0 +1,39 @@
+GET http://localhost:3000
+
+### Create a new asset
+POST http://localhost:3000/assets
+Content-Type: application/json
+
+{
+  "id": "asset1",
+  "symbol": "A1",
+  "price": 100
+}
+
+### List all assets
+GET http://localhost:3000/assets
+
+
+### Create a new wallet
+POST http://localhost:3000/wallets
+Content-Type: application/json
+
+{
+  "id": "wallet1"
+}
+
+### List all wallets
+GET http://localhost:3000/wallets
+
+
+### Add a new asset to a wallet
+POST http://localhost:3000/wallets/wallet1/assets
+Content-Type: application/json
+
+{
+  "asset_id": "asset1",
+  "shares": 10
+}
+
+### List all assets from wallet
+GET http://localhost:3000/wallets/wallet1/assets
