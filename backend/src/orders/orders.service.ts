@@ -85,7 +85,6 @@ export class OrdersService {
               asset_id: order.asset_id,
               wallet_id: order.wallet_id,
             },
-            version: order.version,
           },
         });
         if (walletAsset) {
@@ -96,6 +95,7 @@ export class OrdersService {
                 asset_id: order.asset_id,
                 wallet_id: order.wallet_id,
               },
+              version: order.version,
             },
             data: {
               shares:
