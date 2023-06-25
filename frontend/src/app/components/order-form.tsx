@@ -1,3 +1,4 @@
+import { revalidateTag } from 'next/cache';
 import { HttpClient } from '../http-client';
 
 const initTransaction = async (formData: FormData) => {
@@ -7,7 +8,7 @@ const initTransaction = async (formData: FormData) => {
   const assetId = formData.get('assetId');
   const walletId = formData.get('walletId');
   const type = formData.get('type');
-  return await HttpClient.post(
+  const response = await HttpClient.post(
     `/wallets/${walletId}/orders`,
     JSON.stringify({
       shares,
@@ -22,6 +23,8 @@ const initTransaction = async (formData: FormData) => {
       },
     }),
   );
+  revalidateTag(`orders-waller-${walletId}`);
+  return response;
 };
 
 type Props = {

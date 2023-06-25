@@ -11,9 +11,17 @@ const defaultOptions: RequestInit = {
   },
 };
 
+type Options = {
+  tag: string;
+};
+
 export class HttpClient {
-  static async get(url: string): Promise<any> {
-    const response = await fetch(baseUrl + url, defaultOptions);
+  static async get(url: string, options?: Options): Promise<any> {
+    const customOptions = { ...defaultOptions };
+    if (options?.tag && customOptions.next) {
+      customOptions.next.tags = [options.tag];
+    }
+    const response = await fetch(baseUrl + url, customOptions);
     const json = await response.json();
     return humps.camelizeKeys(json);
   }

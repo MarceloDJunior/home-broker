@@ -2,7 +2,9 @@ import { HttpClient } from '../http-client';
 import { Order } from '../models';
 
 const getOrders = async (walletId: string): Promise<Order[]> => {
-  return await HttpClient.get(`/wallets/${walletId}/orders`);
+  return await HttpClient.get(`/wallets/${walletId}/orders`, {
+    tag: `orders-waller-${walletId}`,
+  });
 };
 
 type Props = {
@@ -18,7 +20,7 @@ export const MyOrders = async ({ walletId }: Props) => {
         console.log(order);
         return (
           <li key={order.id}>
-            {order.asset.id} - {order.shares} - R$ {order.status}
+            {order.asset.id} - {order.shares} - R$ {order.price} - {order.status}
           </li>
         );
       })}
