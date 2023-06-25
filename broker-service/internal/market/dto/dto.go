@@ -18,7 +18,7 @@ type OrderOutput struct {
 	Status            string               `json:"status"`
 	Partial           int                  `json:"partial"`
 	Shares            int                  `json:"shares"`
-	TransactionOutput []*TransactionOutput `json:"transaction_output"`
+	TransactionOutput []*TransactionOutput `json:"transactions"`
 }
 
 type TransactionOutput struct {
