@@ -12,8 +12,6 @@ const HomePage = async ({ params }: PageProps) => {
       <article className="format format-invert py-3 mb-2">
         <h1>Meus investimentos</h1>
       </article>
-
-      {/* @ts-expect-error */}
       <MyWallet walletId={params.walletId} />
     </main>
   );

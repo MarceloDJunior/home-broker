@@ -1,7 +1,9 @@
+'use client';
+
 import Link from 'next/link';
+import useSWR from 'swr';
 import { HttpClient } from '../http-client';
 import { WalletAsset } from '../models';
-import { isHomeBrokerClosed } from '../utils';
 import {
   Table,
   TableBody,
@@ -11,19 +13,23 @@ import {
   TableRow,
 } from './flowbite-components';
 
-const getWalletAssets = async (walletId: string): Promise<WalletAsset[]> => {
-  const oneHour = 60 * 60;
-  return await HttpClient.get(`/wallets/${walletId}/assets`, {
-    revalidate: isHomeBrokerClosed() ? oneHour : 5,
-  });
-};
-
 type Props = {
   walletId: string;
 };
 
-export const MyWallet = async ({ walletId }: Props) => {
-  const walletAssets = await getWalletAssets(walletId);
+export const MyWallet = ({ walletId }: Props) => {
+  const { data: walletAssets, isLoading } = useSWR<WalletAsset[]>(
+    `/wallets/${walletId}/assets`,
+    HttpClient.get,
+    { revalidateOnFocus: false, revalidateOnReconnect: false },
+  );
+
+  if (isLoading)
+    return (
+      <article className="text-white py-5 text-center">
+        <p>Carregando...</p>
+      </article>
+    );
 
   return (
     <Table>
@@ -36,7 +42,7 @@ export const MyWallet = async ({ walletId }: Props) => {
         </TableHeadCell>
       </TableHead>
       <TableBody className="divide-y">
-        {walletAssets!.map((walletAsset, key) => (
+        {walletAssets?.map((walletAsset, key) => (
           <TableRow className="border-gray-700 bg-gray-800" key={key}>
             <TableCell className="whitespace-nowrap font-medium text-white">
               {walletAsset.asset.id} ({walletAsset.asset.symbol})
