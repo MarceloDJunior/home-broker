@@ -2,8 +2,8 @@
 
 import Link from 'next/link';
 import useSWR from 'swr';
-import { HttpClient } from '../http-client';
 import { WalletAsset } from '../models';
+import { fetcher } from '../utils';
 import {
   Table,
   TableBody,
@@ -19,8 +19,8 @@ type Props = {
 
 export const MyWallet = ({ walletId }: Props) => {
   const { data: walletAssets, isLoading } = useSWR<WalletAsset[]>(
-    `/wallets/${walletId}/assets`,
-    HttpClient.get,
+    `/api/wallets/${walletId}/assets`,
+    fetcher,
     { revalidateOnFocus: false, revalidateOnReconnect: false },
   );
 

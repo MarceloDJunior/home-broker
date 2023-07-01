@@ -15,3 +15,6 @@ export const isHomeBrokerClosed = () => {
 
   return currentDate > closeDate;
 };
+
+export const fetcher = (url: string) =>
+  fetch(url).then((response) => response.json());
