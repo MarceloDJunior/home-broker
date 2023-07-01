@@ -10,23 +10,27 @@ services:
       - broker-network
     volumes:
       - .:/home/node/app
+    depends_on:
+      - db
     extra_hosts:
       - "host.docker.internal:172.17.0.1" # to reach localhost
 
   db:
     image: bitnami/mongodb:5.0.17
-    volumes:
-      - mongodb_data:/bitnami/mongodb
     networks:
       - broker-network
     environment:
-      MONGODB_ROOT_PASSWORD: root
+      MONGODB_ADVERTISED_HOSTNAME: localhost
       MONGODB_REPLICA_SET_MODE: primary
       MONGODB_REPLICA_SET_KEY: 123456
+      MONGODB_ROOT_USER: root
+      MONGODB_ROOT_PASSWORD: root
       MONGODB_DATABASE: homebroker
+    volumes:
+      - data:/bitnami/mongodb
 
 volumes:
-  mongodb_data:
+  data:
     driver: local
 
 networks:
