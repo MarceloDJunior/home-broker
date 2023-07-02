@@ -1,7 +1,10 @@
 'use client';
 
+import humps from 'humps';
 import Link from 'next/link';
 import useSWR from 'swr';
+import useSWRSubscription, { SWRSubscriptionOptions } from 'swr/subscription';
+import { apiBaseUrl } from '../http-client';
 import { WalletAsset } from '../models';
 import { fetcher } from '../utils';
 import {
@@ -18,10 +21,42 @@ type Props = {
 };
 
 export const MyWallet = ({ walletId }: Props) => {
-  const { data: walletAssets, isLoading } = useSWR<WalletAsset[]>(
-    `/api/wallets/${walletId}/assets`,
-    fetcher,
-    { revalidateOnFocus: false, revalidateOnReconnect: false },
+  const {
+    data: walletAssets,
+    isLoading,
+    mutate: mutateWalletAssets,
+  } = useSWR<WalletAsset[]>(`/api/wallets/${walletId}/assets`, fetcher, {
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+  });
+
+  useSWRSubscription(
+    `${apiBaseUrl}/wallets/${walletId}/assets/events`,
+    (path, { next }: SWRSubscriptionOptions) => {
+      const eventSource = new EventSource(path);
+      eventSource.addEventListener('wallet-asset-updated', async (event) => {
+        const walletAssetUpdated = humps.camelizeKeys(
+          JSON.parse(event.data),
+        ) as WalletAsset;
+        console.log(walletAssetUpdated)
+        await mutateWalletAssets((prev) => {
+          const foundIndex = prev?.findIndex(
+            (walletAsset) => walletAsset.assetId === walletAssetUpdated.assetId,
+          );
+          if (prev && foundIndex !== -1) {
+            prev[foundIndex!].shares = walletAssetUpdated.shares;
+          }
+          return prev;
+        }, false);
+        next(null, walletAssetUpdated);
+      });
+
+      eventSource.onerror = (error) => {
+        console.error(error);
+        return () => eventSource.close();
+      };
+      return () => eventSource.close();
+    },
   );
 
   if (isLoading)

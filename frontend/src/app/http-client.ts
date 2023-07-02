@@ -1,6 +1,6 @@
 import humps from 'humps';
 
-const baseUrl = 'http://host.docker.internal:3000';
+export const apiBaseUrl = 'http://host.docker.internal:3000';
 
 const defaultOptions: RequestInit = {
   headers: {
@@ -26,13 +26,13 @@ export class HttpClient {
     if (options?.revalidate && customOptions.next) {
       customOptions.next.revalidate = options.revalidate;
     }
-    const response = await fetch(baseUrl + url, customOptions);
+    const response = await fetch(apiBaseUrl + url, customOptions);
     const json = await response.json();
     return humps.camelizeKeys(json);
   }
 
   static async post(url: string, body: any): Promise<any> {
-    const response = await fetch(baseUrl + url, {
+    const response = await fetch(apiBaseUrl + url, {
       ...defaultOptions,
       method: 'POST',
       body,
