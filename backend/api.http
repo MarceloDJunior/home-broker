@@ -38,6 +38,9 @@ Content-Type: application/json
 ### List all assets from wallet
 GET http://localhost:3000/wallets/wallet1/assets
 
+### Subscribe to assets events
+GET http://localhost:3000/wallets/wallet1/assets/events
+
 
 ### Add a new order to wallet
 POST http://localhost:3000/wallets/wallet1/orders
