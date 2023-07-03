@@ -1,4 +1,12 @@
-import { Body, Controller, Get, MessageEvent, Post, Sse } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  MessageEvent,
+  Param,
+  Post,
+  Sse,
+} from '@nestjs/common';
 import { map, Observable } from 'rxjs';
 import { AssetsService } from './assets.service';
 
@@ -14,6 +22,11 @@ export class AssetsController {
   @Post()
   async create(@Body() body: { id: string; symbol: string; price: number }) {
     return await this.assetsService.create(body);
+  }
+
+  @Get(':id')
+  async findOne(@Param('id') id: string) {
+    return await this.assetsService.findOne(id);
   }
 
   @Sse('events')

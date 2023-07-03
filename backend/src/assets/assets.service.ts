@@ -22,6 +22,10 @@ export class AssetsService {
     return await this.prismaService.asset.create({ data });
   }
 
+  async findOne(id: string) {
+    return await this.prismaService.asset.findUnique({ where: { id } });
+  }
+
   subscribeEvents(): Observable<{
     event: 'asset-price-changed';
     data: Asset;
