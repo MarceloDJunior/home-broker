@@ -5,7 +5,7 @@ import Link from 'next/link';
 import useSWR from 'swr';
 import useSWRSubscription, { SWRSubscriptionOptions } from 'swr/subscription';
 import { apiBaseUrl } from '../http-client';
-import { WalletAsset } from '../models';
+import { Asset, WalletAsset } from '../models';
 import { fetcher } from '../utils';
 import {
   Table,
@@ -30,7 +30,41 @@ export const MyWallet = ({ walletId }: Props) => {
     revalidateOnReconnect: false,
   });
 
-  useSWRSubscription(
+  const { data: updatedAssets } = useSWRSubscription(
+    `${apiBaseUrl}/assets/events`,
+    (path, { next }: SWRSubscriptionOptions) => {
+      const eventSource = new EventSource(path);
+      eventSource.addEventListener('asset-price-changed', async (event) => {
+        const assetChanged = humps.camelizeKeys(
+          JSON.parse(event.data),
+        ) as Asset;
+        console.log(assetChanged);
+        await mutateWalletAssets((prev) => {
+          const updatedWalletAssets = [...(prev ?? [])];
+          const foundIndex = updatedWalletAssets.findIndex(
+            (walletAsset) => walletAsset.assetId === assetChanged.id,
+          );
+          if (foundIndex !== -1) {
+            updatedWalletAssets[foundIndex!].asset.price = assetChanged.price;
+          }
+          return updatedWalletAssets;
+        });
+
+        next(null, assetChanged);
+      });
+
+      eventSource.onerror = (error) => {
+        console.error(error);
+        eventSource.close();
+      };
+      return () => {
+        console.log('close event source');
+        eventSource.close();
+      };
+    },
+  );
+
+  const { data: updatedWalletAssets } = useSWRSubscription(
     `${apiBaseUrl}/wallets/${walletId}/assets/events`,
     (path, { next }: SWRSubscriptionOptions) => {
       const eventSource = new EventSource(path);
@@ -38,24 +72,28 @@ export const MyWallet = ({ walletId }: Props) => {
         const walletAssetUpdated = humps.camelizeKeys(
           JSON.parse(event.data),
         ) as WalletAsset;
-        console.log(walletAssetUpdated)
+        console.log(walletAssetUpdated);
         await mutateWalletAssets((prev) => {
-          const foundIndex = prev?.findIndex(
+          const updatedWalletAssets = [...(prev ?? [])];
+          const foundIndex = updatedWalletAssets.findIndex(
             (walletAsset) => walletAsset.assetId === walletAssetUpdated.assetId,
           );
-          if (prev && foundIndex !== -1) {
-            prev[foundIndex!].shares = walletAssetUpdated.shares;
+          if (foundIndex !== -1) {
+            updatedWalletAssets[foundIndex!].shares = walletAssetUpdated.shares;
           }
-          return prev;
-        }, false);
+          return updatedWalletAssets;
+        });
         next(null, walletAssetUpdated);
       });
 
       eventSource.onerror = (error) => {
         console.error(error);
-        return () => eventSource.close();
+        eventSource.close();
       };
-      return () => eventSource.close();
+      return () => {
+        console.log('close event source');
+        eventSource.close();
+      };
     },
   );
 
