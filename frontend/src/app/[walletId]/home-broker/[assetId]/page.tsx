@@ -7,6 +7,7 @@ import {
 import { MyOrders } from '@/app/components/my-orders';
 import { OrderForm } from '@/app/components/order-form';
 import { HiArrowUp, HiShoppingCart } from '@/app/components/react-icons/hi';
+import { SyncOrders } from '@/app/components/sync-orders';
 
 type PageProps = {
   params: {
@@ -60,8 +61,10 @@ const HomeBrokerPage = async ({ params }: PageProps) => {
               }}
             >
               <div className="max-h-96 overflow-y-auto overflow-hidden">
-                {/* @ts-expect-error */}
-                <MyOrders walletId={params.walletId} />
+                <SyncOrders walletId={params.walletId}>
+                  {/* @ts-expect-error */}
+                  <MyOrders walletId={params.walletId} />
+                </SyncOrders>
               </div>
             </Card>
           </div>

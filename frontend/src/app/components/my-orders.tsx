@@ -14,7 +14,7 @@ import {
 const getOrders = async (walletId: string): Promise<Order[]> => {
   const oneHour = 60 * 60;
   return await HttpClient.get(`/wallets/${walletId}/orders`, {
-    tag: `orders-waller-${walletId}`,
+    tag: `orders-wallet-${walletId}`,
     revalidate: isHomeBrokerClosed() ? oneHour : 5,
   });
 };
@@ -48,10 +48,10 @@ export const MyOrders = async ({ walletId }: Props) => {
               <TableCell>{order.shares}</TableCell>
               <TableCell>{order.price}</TableCell>
               <TableCell>
-                <Badge>{order.type}</Badge>
+                <Badge className="text-center">{order.type}</Badge>
               </TableCell>
               <TableCell>
-                <Badge>{order.status}</Badge>
+                <Badge className="text-center">{order.status}</Badge>
               </TableCell>
             </TableRow>
           ))}
