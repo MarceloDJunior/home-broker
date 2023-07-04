@@ -1,4 +1,4 @@
-import { ChartComponent } from '@/app/components/chart-component';
+import { AssetChartComponent } from '@/app/components/asset-chart-component';
 import {
   TabsGroup,
   TabsItem,
@@ -62,15 +62,17 @@ const HomeBrokerPage = async ({ params }: PageProps) => {
             >
               <div className="max-h-96 overflow-y-auto overflow-hidden">
                 <SyncOrders walletId={params.walletId}>
-                  {/* @ts-expect-error */}
-                  <MyOrders walletId={params.walletId} />
+                  <div className="max-h-96 overflow-y-auto overflow-hidden">
+                    {/* @ts-expect-error */}
+                    <MyOrders walletId={params.walletId} />
+                  </div>
                 </SyncOrders>
               </div>
             </Card>
           </div>
         </div>
         <div className="col-span-3 flex flex-grow">
-          <ChartComponent header="Asset 1 - R$ 100" />
+          <AssetChartComponent assetId={params.assetId} />
         </div>
       </div>
     </main>

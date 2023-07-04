@@ -1,7 +1,14 @@
 export type Asset = {
   id: string;
   symbol: string;
-  price: string;
+  price: number;
+};
+
+export type AssetDaily = {
+  id: string;
+  asset_id: string;
+  date: string;
+  price: number;
 };
 
 export type WalletAsset = {
@@ -18,7 +25,7 @@ export type Order = {
   assetId: string;
   shares: string;
   partial: string;
-  price: string;
+  price: number;
   type: 'BUY' | 'SELL';
   createdAt: string;
   updatedAt: string;

@@ -30,6 +30,7 @@ export const MyWallet = ({ walletId }: Props) => {
     revalidateOnReconnect: false,
   });
 
+  // TODO: Check why it doesn't work if I remove the destructuring
   const { data: updatedAssets } = useSWRSubscription(
     `${apiBaseUrl}/assets/events`,
     (path, { next }: SWRSubscriptionOptions) => {
