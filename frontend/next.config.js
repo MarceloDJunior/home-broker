@@ -1,8 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  fastRefresh: true,
+  swcMinify: true,
   experimental: {
-    serverActions: true
-  }
-}
+    serverActions: true,
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
