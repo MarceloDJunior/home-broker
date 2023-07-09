@@ -1,6 +1,6 @@
 import humps from 'humps';
 
-export const apiBaseUrl = 'http://host.docker.internal:3000';
+export const apiBaseUrl = 'http://localhost:3000';
 
 const defaultOptions: RequestInit = {
   headers: {
