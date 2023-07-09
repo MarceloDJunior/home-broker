@@ -2,7 +2,7 @@
 
 import { Spinner } from 'flowbite-react';
 import humps from 'humps';
-import { MutableRefObject, useRef } from 'react';
+import { useRef } from 'react';
 import useSWR from 'swr';
 import useSWRSubscription, { SWRSubscriptionOptions } from 'swr/subscription';
 import { apiBaseUrl, HttpClient } from '../http-client';
