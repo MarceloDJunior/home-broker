@@ -4,10 +4,10 @@ import { Button, Label, TextInput } from './flowbite-components';
 
 const initTransaction = async (formData: FormData) => {
   'use server';
-  const shares = formData.get('shares');
-  const price = formData.get('price');
-  const assetId = formData.get('assetId');
-  const walletId = formData.get('walletId');
+  const shares = Number(formData.get('shares'));
+  const price = Number(formData.get('price'));
+  const assetId = formData.get('asset_id');
+  const walletId = formData.get('wallet_id');
   const type = formData.get('type');
   const response = await HttpClient.post(
     `/wallets/${walletId}/orders`,
@@ -24,7 +24,7 @@ const initTransaction = async (formData: FormData) => {
       },
     }),
   );
-  revalidateTag(`orders-waller-${walletId}`);
+  revalidateTag(`orders-wallet-${walletId}`);
   return response;
 };
 
@@ -40,7 +40,7 @@ export const OrderForm = ({ assetId, walletId, type }: Props) => {
       <form action={initTransaction}>
         <input name="asset_id" type="hidden" defaultValue={assetId} />
         <input name="wallet_id" type="hidden" defaultValue={walletId} />
-        <input name="type" type="hidden" defaultValue={'BUY'} />
+        <input name="type" type="hidden" defaultValue={type} />
         <div>
           <div className="mb-2 block">
             <Label htmlFor="shares" value="Quantidade" />
