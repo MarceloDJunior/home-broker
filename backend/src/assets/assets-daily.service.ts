@@ -13,10 +13,10 @@ export class AssetsDailyService {
     private assetDailySchema: Model<AssetDailySchema>,
   ) {}
 
-  async findaAll(assetIdOrSymbol: string) {
+  async findAll(assetIdOrSymbol: string) {
     const where = ObjectId.isValid(assetIdOrSymbol)
       ? { asset_id: assetIdOrSymbol }
-      : { asset: { symbol: assetIdOrSymbol } };
+      : { Asset: { symbol: assetIdOrSymbol } };
 
     return await this.prismaService.assetDaily.findMany({ where });
   }

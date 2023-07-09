@@ -1,5 +1,6 @@
 'use client';
 
+import { Spinner } from 'flowbite-react';
 import humps from 'humps';
 import { MutableRefObject, useRef } from 'react';
 import useSWR from 'swr';
@@ -26,6 +27,19 @@ export const AssetChartComponent = ({ assetId }: Props) => {
       },
     },
   );
+
+  const { isLoading } = useSWR(`/assets/${assetId}/daily`, HttpClient.get, {
+    onSuccess: (response) => {
+      const assetDailies = response as AssetDaily[];
+      console.log(assetDailies);
+      chartRef.current?.setData(
+        assetDailies.map((assetDaily) => ({
+          date: assetDaily.date,
+          value: assetDaily.price,
+        })),
+      );
+    },
+  });
 
   const { data: updatedAssets } = useSWRSubscription(
     `${apiBaseUrl}/assets/${assetId}/daily/events`,
@@ -64,6 +78,16 @@ export const AssetChartComponent = ({ assetId }: Props) => {
   );
 
   return (
-    <ChartComponent header={`${assetId} - R$ ${asset?.price}`} ref={chartRef} />
+    <div className="h-100 flex-grow flex relative">
+      <ChartComponent
+        header={`${assetId} - R$ ${asset?.price}`}
+        ref={chartRef}
+      />
+      {isLoading && (
+        <div className="absolute inset-0 w-full h-full flex items-center justify-center">
+          <Spinner size="xl" />
+        </div>
+      )}
+    </div>
   );
 };

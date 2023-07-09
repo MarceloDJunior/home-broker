@@ -8,7 +8,7 @@ export class AssetsDailyController {
 
   @Get()
   async all(@Param('id') id: string) {
-    return await this.assetsDailyService.findaAll(id);
+    return await this.assetsDailyService.findAll(id);
   }
 
   @Sse('events')
