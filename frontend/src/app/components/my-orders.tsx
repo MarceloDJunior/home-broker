@@ -29,7 +29,7 @@ export const MyOrders = async ({ walletId }: Props) => {
   return (
     <div>
       <article className="format format-invert">
-        <h2>Minha ordens</h2>
+        <h2>Minhas ordens</h2>
       </article>
       <Table className="mt-2">
         <TableHead>
@@ -51,7 +51,18 @@ export const MyOrders = async ({ walletId }: Props) => {
                 <Badge className="text-center">{order.type}</Badge>
               </TableCell>
               <TableCell>
-                <Badge className="text-center">{order.status}</Badge>
+                <Badge
+                  className="text-center"
+                  color={
+                    order.status === 'OPEN'
+                      ? 'green'
+                      : order.status === 'CLOSED'
+                      ? 'red'
+                      : 'yellow'
+                  }
+                >
+                  {order.status}
+                </Badge>
               </TableCell>
             </TableRow>
           ))}
