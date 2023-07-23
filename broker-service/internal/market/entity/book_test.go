@@ -98,11 +98,11 @@ func TestBuyPartialAsset(t *testing.T) {
 	go book.Trade()
 
 	wg.Add(1)
-	// investidor 2 quer comprar 5 shares
+	// investor 2 wants to buy 5 shares
 	order2 := NewOrder("1", investor2, asset1, 5, 5.0, "BUY")
 	orderChan <- order2
 
-	// investidor 1 quer vender 3 shares
+	// investor 1 wnats to sell 3 shares
 	order := NewOrder("2", investor, asset1, 3, 5.0, "SELL")
 	orderChan <- order
 
@@ -162,11 +162,11 @@ func TestBuyWithDifferentPrice(t *testing.T) {
 	go book.Trade()
 
 	wg.Add(1)
-	// investidor 2 quer comprar 5 shares
+	// investor 2 wanst to buy 5 shares
 	order2 := NewOrder("2", investor2, asset1, 5, 5.0, "BUY")
 	orderChan <- order2
 
-	// investidor 1 quer vender 3 shares
+	// investo 1 wants to sell 3 shares
 	order := NewOrder("1", investor, asset1, 3, 4.0, "SELL")
 	orderChan <- order
 
@@ -221,11 +221,11 @@ func TestNoMatch(t *testing.T) {
 	go book.Trade()
 
 	wg.Add(0)
-	// investidor 1 quer vender 3 shares
+	// investor 1 wants to sell 3 shares
 	order := NewOrder("1", investor, asset1, 3, 6.0, "SELL")
 	orderChan <- order
 
-	// investidor 2 quer comprar 5 shares
+	// investor 2 wants to buy 5 shares
 	order2 := NewOrder("2", investor2, asset1, 5, 5.0, "BUY")
 	orderChan <- order2
 

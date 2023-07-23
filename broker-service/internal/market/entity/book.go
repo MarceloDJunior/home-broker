@@ -51,9 +51,7 @@ func (book *Book) Trade() {
 					order.Transactions = append(order.Transactions, transaction)
 					book.OrdersChanOut <- sellOrder
 					book.OrdersChanOut <- order
-					if sellOrder.PendingShares > 0 { // TODO: Looks redundant, maybe remove it
-						sellOrders[asset].Push(sellOrder)
-					}
+					sellOrders[asset].Push(sellOrder)
 				}
 			}
 		} else if order.OrderType == "SELL" {
@@ -67,9 +65,7 @@ func (book *Book) Trade() {
 					order.Transactions = append(order.Transactions, transaction)
 					book.OrdersChanOut <- buyOrder
 					book.OrdersChanOut <- order
-					if buyOrder.PendingShares > 0 { // TODO: Looks redundant, maybe remove it
-						buyOrders[asset].Push(buyOrder)
-					}
+					buyOrders[asset].Push(buyOrder)
 				}
 			}
 		}
