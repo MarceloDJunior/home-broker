@@ -49,7 +49,7 @@ export class OrdersService {
         partial: input.shares,
         price: input.price,
         type: input.type,
-        status: OrderStatus.PENDING,
+        status: OrderStatus.OPEN,
         version: 1,
       },
     });
