@@ -9,6 +9,8 @@ export default function DefaultNavbar() {
   const pathname = usePathname();
   const params = useParams();
 
+  const walletId = params.walletId ?? 'wallet1';
+
   return (
     <Navbar fluid rounded>
       <Navbar.Brand href="https://flowbite-react.com">
@@ -26,15 +28,15 @@ export default function DefaultNavbar() {
       <Navbar.Toggle />
       <Navbar.Collapse>
         <Navbar.Link
-          active={pathname === `/${params.walletId}`}
+          active={pathname === `/${walletId}`}
           as={Link}
-          href={`/${params.walletId}`}
+          href={`/${walletId}`}
         >
           Home
         </Navbar.Link>
-        <Navbar.Link href="#">Ativos</Navbar.Link>
+        <Navbar.Link href="#">Assets</Navbar.Link>
       </Navbar.Collapse>
-      <div className="flex md:order-2 text-white">Olá {params.walletId}</div>
+      <div className="flex md:order-2 text-white">Hi, {walletId}</div>
     </Navbar>
   );
 }

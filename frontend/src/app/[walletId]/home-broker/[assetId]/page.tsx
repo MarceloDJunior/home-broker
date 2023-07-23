@@ -34,14 +34,14 @@ const HomeBrokerPage = async ({ params }: PageProps) => {
               }}
             >
               <TabsGroup aria-label="Default tabs" style="pills">
-                <TabsItem active title="Comprar" icon={HiShoppingCart}>
+                <TabsItem active title="Buy" icon={HiShoppingCart}>
                   <OrderForm
                     walletId={params.walletId}
                     assetId={params.assetId}
                     type="BUY"
                   />
                 </TabsItem>
-                <TabsItem title="Vender" icon={HiArrowUp}>
+                <TabsItem title="Sell" icon={HiArrowUp}>
                   <OrderForm
                     walletId={params.walletId}
                     assetId={params.assetId}

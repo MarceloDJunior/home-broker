@@ -29,15 +29,15 @@ export const MyOrders = async ({ walletId }: Props) => {
   return (
     <div>
       <article className="format format-invert">
-        <h2>Minhas ordens</h2>
+        <h2>My Orders</h2>
       </article>
       <Table className="mt-2">
         <TableHead>
-          <TableHeadCell>asset_id</TableHeadCell>
-          <TableHeadCell>quant.</TableHeadCell>
-          <TableHeadCell>price</TableHeadCell>
-          <TableHeadCell>tipo</TableHeadCell>
-          <TableHeadCell>status</TableHeadCell>
+          <TableHeadCell>Asset</TableHeadCell>
+          <TableHeadCell>Shares</TableHeadCell>
+          <TableHeadCell>Price</TableHeadCell>
+          <TableHeadCell>Type</TableHeadCell>
+          <TableHeadCell>Status</TableHeadCell>
         </TableHead>
         <TableBody>
           {orders.map((order, key) => (

@@ -43,7 +43,7 @@ export const OrderForm = ({ assetId, walletId, type }: Props) => {
         <input name="type" type="hidden" defaultValue={type} />
         <div>
           <div className="mb-2 block">
-            <Label htmlFor="shares" value="Quantidade" />
+            <Label htmlFor="shares" value="Shares" />
           </div>
           <TextInput
             id="shares"
@@ -58,7 +58,7 @@ export const OrderForm = ({ assetId, walletId, type }: Props) => {
         <br />
         <div>
           <div className="mb-2 block">
-            <Label htmlFor="shares" value="Preço R$" />
+            <Label htmlFor="price" value="Price $" />
           </div>
           <TextInput
             id="price"
@@ -72,7 +72,7 @@ export const OrderForm = ({ assetId, walletId, type }: Props) => {
         </div>
         <br />
         <Button type="submit" color={type === 'BUY' ? 'green' : 'red'}>
-          Confirmar {type === 'BUY' ? 'compra' : 'venda'}
+          Confirm {type === 'BUY' ? 'purchase' : 'sale'}
         </Button>
       </form>
     </div>

@@ -101,18 +101,18 @@ export const MyWallet = ({ walletId }: Props) => {
   if (isLoading)
     return (
       <article className="text-white py-5 text-center">
-        <p>Carregando...</p>
+        <p>Loading...</p>
       </article>
     );
 
   return (
     <Table>
       <TableHead>
-        <TableHeadCell>Nome</TableHeadCell>
-        <TableHeadCell>Preço R$</TableHeadCell>
-        <TableHeadCell>Quant.</TableHeadCell>
+        <TableHeadCell>Name</TableHeadCell>
+        <TableHeadCell>Price $</TableHeadCell>
+        <TableHeadCell>Shares</TableHeadCell>
         <TableHeadCell>
-          <span className="sr-only">Comprar/Vender</span>
+          <span className="sr-only">Buy/Sell</span>
         </TableHeadCell>
       </TableHead>
       <TableBody className="divide-y">
@@ -128,7 +128,7 @@ export const MyWallet = ({ walletId }: Props) => {
                 className="font-medium hover:underline text-cyan-500"
                 href={`/${walletId}/home-broker/${walletAsset.asset.id}`}
               >
-                Comprar/Vender
+                Buy/Sell
               </Link>
             </TableCell>
           </TableRow>
