@@ -1,34 +1,33 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Home Broker Frontend
+
+The frontend part of the Home Broker project, which is built using Next.js 13. The frontend consumes the backend NestJS REST API and subscribes to server-sent events for real-time updates.
+
+## Technologies Used
+
+- **Next.js 13**: The frontend is built with Next.js 13, leveraging its latest features, including Server Components and the new Next router.
+- **SWR**: Used to handle requests and improve performance. SWR first gets the data from cache, then makes the actual request and revalidates.
+- **SWR Subscriptions**: Used to subscribe for server-sent events.
+- **Tailwind CSS**: Used for styling the application.
+- **Flowbite Components**: Used for creating reusable components.
+- **JSON Server**: Used to simulate a backend.
+- **Lightweight Charts**: Used to create the assets chart.
+- **Server Actions and Revalidation Tags**: Used to manage server-side actions and control data revalidation.
+- **Next.js API**: Used to improve caching and hide the actual API endpoints. Also used to create a different cache revalidation strategy based on the current time (revalidates more often when the stock is open).
 
 ## Getting Started
 
-First, run the development server:
+To get a local copy up and running, follow these simple steps:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+1. Clone the repository
+2. Make sure you have Node.js and npm installed on your machine.
+3. Install dependencies using `npm install`.
+4. Run the frontend using `npm run dev`.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## References
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- [Next.js](https://nextjs.org/)
+- [SWR](https://swr.vercel.app/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Flowbite](https://flowbite.com/)
+- [JSON Server](https://github.com/typicode/json-server)
+- [Lightweight Charts](https://github.com/tradingview/lightweight-charts)
