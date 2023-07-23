@@ -33,7 +33,7 @@ export class OrdersService {
         },
       },
       orderBy: {
-        updated_at: 'desc',
+        created_at: 'desc',
       },
     });
   }
