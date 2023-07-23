@@ -7,6 +7,7 @@ import useSWR from 'swr';
 import useSWRSubscription, { SWRSubscriptionOptions } from 'swr/subscription';
 import { apiBaseUrl, HttpClient } from '../http-client';
 import { Asset, AssetDaily } from '../models';
+import { fetcher } from '../utils';
 import { ChartComponent, ChartComponentRef } from './chart-component';
 
 type Props = {
@@ -16,10 +17,9 @@ type Props = {
 export const AssetChartComponent = ({ assetId }: Props) => {
   const chartRef = useRef<ChartComponentRef>(null);
 
-  // TODO: Implement on the next API to work with cache
   const { data: asset, mutate } = useSWR<Partial<Asset>>(
-    `/assets/${assetId}`,
-    HttpClient.get,
+    `/api/assets/${assetId}`,
+    fetcher,
     {
       fallbackData: {
         id: assetId,
@@ -80,7 +80,7 @@ export const AssetChartComponent = ({ assetId }: Props) => {
   return (
     <div className="h-100 flex-grow flex relative">
       <ChartComponent
-        header={`${assetId} - R$ ${asset?.price}`}
+        header={`${assetId} - $ ${asset?.price}`}
         ref={chartRef}
       />
       {isLoading && (
