@@ -27,7 +27,7 @@ model Asset {
 model AssetHistory {
   id         String   @id @default(auto()) @map("_id") @db.ObjectId
   asset_id   String
-  Asset      Asset   @relation(fields: [asset_id], references: [id])
+  Asset      Asset    @relation(fields: [asset_id], references: [id])
   date       DateTime @db.Date
   open       Float    @db.Double
   high       Float    @db.Double
@@ -36,13 +36,12 @@ model AssetHistory {
   volume     Float    @db.Double
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
-  assetId    String?
 }
 
 model AssetDaily {
   id         String   @id @default(auto()) @map("_id") @db.ObjectId
   asset_id   String
-  Asset      Asset   @relation(fields: [asset_id], references: [id])
+  Asset      Asset    @relation(fields: [asset_id], references: [id])
   date       DateTime @db.Date
   price      Float    @db.Double
   created_at DateTime @default(now())
