@@ -13,30 +13,38 @@ export default function DefaultNavbar() {
 
   return (
     <Navbar fluid rounded>
-      <Navbar.Brand href="https://flowbite-react.com">
-        <Image
-          className="mr-3 h-6 sm:h-9"
-          alt="Full Cycle Invest"
-          src="/logo.png"
-          width={37}
-          height={40}
-        />
-        <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
-          FullCycle Invest
-        </span>
-      </Navbar.Brand>
-      <Navbar.Toggle />
-      <Navbar.Collapse>
-        <Navbar.Link
-          active={pathname === `/${walletId}`}
-          as={Link}
-          href={`/${walletId}`}
-        >
-          Home
-        </Navbar.Link>
-        <Navbar.Link href="#">Assets</Navbar.Link>
-      </Navbar.Collapse>
-      <div className="flex md:order-2 text-white">Hi, {walletId}</div>
+      <div className="flex flex-1 flex-row items-center">
+        <div className="flex flex-1">
+          <Navbar.Brand href="https://flowbite-react.com">
+            <Image
+              className="mr-3 h-6 sm:h-9"
+              alt="Full Cycle Invest"
+              src="/logo.png"
+              width={37}
+              height={40}
+            />
+            <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
+              FullCycle Invest
+            </span>
+          </Navbar.Brand>
+        </div>
+        <div className="flex flex-1 justify-end md:justify-center">
+          <Navbar.Toggle />
+          <Navbar.Collapse>
+            <Navbar.Link
+              active={pathname === `/${walletId}`}
+              as={Link}
+              href={`/${walletId}`}
+            >
+              Home
+            </Navbar.Link>
+            <Navbar.Link href="#">Assets</Navbar.Link>
+          </Navbar.Collapse>
+        </div>
+        <div className="flex-1 justify-end hidden md:flex">
+          <div className="flex md:order-2 text-white">Hi, {walletId}</div>
+        </div>
+      </div>
     </Navbar>
   );
 }
