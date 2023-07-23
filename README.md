@@ -8,6 +8,8 @@ The backend, built with NestJS, exposes endpoints to create wallets, assets, and
 
 The frontend, built with Next.js 13, consumes the backend REST API and subscribes to server-sent events for real-time updates.
 
+The project aims to simulate a stock trading platform where users can create wallets, place buying and selling orders for assets, and see real-time updates of their transactions. It's designed to mimic the operations of a real-world stock trading platform.
+
 ## Project Structure
 
 - [**broker-service**](./broker-service/README.md): Contains the Go service that handles order matching logic.
